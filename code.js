@@ -1,4 +1,4 @@
-// Enhanced crypto price fetching with additional data
+// Enhanced crypto price fetching with detailed error handling
 async function fetchCryptoPrice() {
     const crypto = document.getElementById("crypto").value;
     const currency = document.getElementById("currency").value;
@@ -11,8 +11,23 @@ async function fetchCryptoPrice() {
     const url = `https://api.coingecko.com/api/v3/simple/price?ids=${crypto}&vs_currencies=${currency}&include_24hr_change=true`;
     
     try {
+        console.log('Fetching from:', url); // Debug log
+        
         const response = await fetch(url);
+        console.log('Response status:', response.status); // Debug log
+        
+        if (!response.ok) {
+            if (response.status === 429) {
+                throw new Error('Rate limit exceeded. Please wait a moment and try again.');
+            } else if (response.status === 403) {
+                throw new Error('API access forbidden. You may need to register for a free account.');
+            } else {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+        }
+        
         const data = await response.json();
+        console.log('API Response:', data); // Debug log
         
         if (data[crypto]) {
             const price = data[crypto][currency];
@@ -45,12 +60,29 @@ async function fetchCryptoPrice() {
                 </div>
             `;
         } else {
-            throw new Error('Invalid cryptocurrency data');
+            throw new Error('No data found for selected cryptocurrency');
         }
     } catch (error) {
+        console.error('Fetch error:', error); // Debug log
+        
+        let errorMessage = '❌ Unable to fetch crypto price.';
+        
+        if (error.message.includes('Rate limit')) {
+            errorMessage = '⏱️ Too many requests. Please wait 1-2 minutes and try again.';
+        } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+            errorMessage = '🌐 Network error. Check your internet connection or try using a web server.';
+        } else if (error.message.includes('CORS')) {
+            errorMessage = '🔒 CORS error. Try running from a web server instead of opening the file directly.';
+        } else if (error.message.includes('forbidden')) {
+            errorMessage = '🚫 API access limited. Consider registering for a free CoinGecko account.';
+        }
+        
         resultDiv.innerHTML = `
             <div style="color: #e74c3c;">
-                ❌ Unable to fetch crypto price. Please try again.
+                ${errorMessage}
+                <br><small style="display: block; margin-top: 10px; opacity: 0.8;">
+                    Error details: ${error.message}
+                </small>
             </div>
         `;
     }
