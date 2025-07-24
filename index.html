@@ -1,59 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neon Crypto & Currency Converter</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoFlow - Advanced Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="toggle-theme">
-    <button id="themeToggle">🌙 Toggle Theme</button>
-  </div>
-
-  <div class="card" id="mainCard">
-    <h1>💹 Currency Converter</h1>
-    <div class="block">
-      <label>Amount (EUR)</label>
-      <input type="number" id="currency-amount" value="100" min="1" oninput="convertCurrency()" />
-      <div class="arrow">⇩</div>
-      <label>Converted (USD)</label>
-      <p id="currency-result">--</p>
+    <div class="background-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
     </div>
 
-    <div class="history" id="currency-history">
-      <h3>Conversion History</h3>
-      <ul id="currency-history-list"></ul>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">CryptoFlow</h1>
+            <p class="subtitle">Real-time Crypto & Currency Tracking</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title crypto-title">
+                <span>🚀</span> Cryptocurrency Tracker
+            </h2>
+            <div class="form-group">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="crypto">Select Cryptocurrency</label>
+                        <select id="crypto">
+                            <option value="bitcoin">Bitcoin (BTC)</option>
+                            <option value="ethereum">Ethereum (ETH)</option>
+                            <option value="dogecoin">Dogecoin (DOGE)</option>
+                            <option value="cardano">Cardano (ADA)</option>
+                            <option value="solana">Solana (SOL)</option>
+                            <option value="polkadot">Polkadot (DOT)</option>
+                            <option value="chainlink">Chainlink (LINK)</option>
+                            <option value="litecoin">Litecoin (LTC)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="currency">Display Currency</label>
+                        <select id="currency">
+                            <option value="usd">US Dollar (USD)</option>
+                            <option value="inr">Indian Rupee (INR)</option>
+                            <option value="eur">Euro (EUR)</option>
+                            <option value="gbp">British Pound (GBP)</option>
+                            <option value="jpy">Japanese Yen (JPY)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="button" onclick="fetchCryptoPrice()">Get Live Price</button>
+            </div>
+            <div id="crypto-result" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title currency-title">
+                <span>💱</span> Currency Converter
+            </h2>
+            <div class="form-group">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" placeholder="Enter amount" min="0" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="from">From Currency</label>
+                        <select id="from">
+                            <option value="USD">US Dollar (USD)</option>
+                            <option value="INR" selected>Indian Rupee (INR)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="GBP">British Pound (GBP)</option>
+                            <option value="JPY">Japanese Yen (JPY)</option>
+                            <option value="CAD">Canadian Dollar (CAD)</option>
+                            <option value="AUD">Australian Dollar (AUD)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="to">To Currency</label>
+                        <select id="to">
+                            <option value="USD" selected>US Dollar (USD)</option>
+                            <option value="INR">Indian Rupee (INR)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="GBP">British Pound (GBP)</option>
+                            <option value="JPY">Japanese Yen (JPY)</option>
+                            <option value="CAD">Canadian Dollar (CAD)</option>
+                            <option value="AUD">Australian Dollar (AUD)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="button" onclick="convertCurrency()">Convert Currency</button>
+            </div>
+            <div id="conversion-result" class="result"></div>
+        </div>
     </div>
 
-    <hr />
-
-    <h1>🪙 Crypto Price Checker</h1>
-    <div class="block">
-      <label>Select Crypto</label>
-      <select id="crypto">
-        <option value="bitcoin">Bitcoin</option>
-        <option value="ethereum">Ethereum</option>
-        <option value="dogecoin">Dogecoin</option>
-      </select>
-
-      <label>Select Currency</label>
-      <select id="crypto-currency">
-        <option value="usd">USD</option>
-        <option value="inr">INR</option>
-        <option value="eur">EUR</option>
-      </select>
-
-      <button onclick="fetchCryptoPrice()">Get Price</button>
-      <p id="crypto-result">--</p>
-    </div>
-
-    <div class="history" id="crypto-history">
-      <h3>Price History</h3>
-      <ul id="crypto-history-list"></ul>
-    </div>
-  </div>
-
-  <script src="code.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
