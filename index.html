@@ -7,14 +7,23 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="card">
+  <div class="toggle-theme">
+    <button id="themeToggle">🌙 Toggle Theme</button>
+  </div>
+
+  <div class="card" id="mainCard">
     <h1>💹 Currency Converter</h1>
     <div class="block">
       <label>Amount (EUR)</label>
-      <input type="number" id="currency-amount" value="100" oninput="convertCurrency()" />
+      <input type="number" id="currency-amount" value="100" min="1" oninput="convertCurrency()" />
       <div class="arrow">⇩</div>
       <label>Converted (USD)</label>
       <p id="currency-result">--</p>
+    </div>
+
+    <div class="history" id="currency-history">
+      <h3>Conversion History</h3>
+      <ul id="currency-history-list"></ul>
     </div>
 
     <hr />
@@ -38,8 +47,13 @@
       <button onclick="fetchCryptoPrice()">Get Price</button>
       <p id="crypto-result">--</p>
     </div>
+
+    <div class="history" id="crypto-history">
+      <h3>Price History</h3>
+      <ul id="crypto-history-list"></ul>
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="code.js"></script>
 </body>
 </html>
