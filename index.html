@@ -3,28 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Currency Converter</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Neon Crypto & Currency Converter</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="converter-card">
-    <form id="converter-form" onsubmit="event.preventDefault(); convertCurrency();">
-      <div class="top-section">
-        <p class="currency-name">Euro</p>
-        <input type="number" id="amount" value="100" min="1" required />
-        <span class="currency-code">EUR</span>
-      </div>
+  <div class="card">
+    <h1>💹 Currency Converter</h1>
+    <div class="block">
+      <label>Amount (EUR)</label>
+      <input type="number" id="currency-amount" value="100" oninput="convertCurrency()" />
+      <div class="arrow">⇩</div>
+      <label>Converted (USD)</label>
+      <p id="currency-result">--</p>
+    </div>
 
-      <div class="icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/318/318476.png" alt="arrow" />
-      </div>
+    <hr />
 
-      <div class="bottom-section">
-        <p id="converted-amount">--</p>
-        <span class="currency-code">USD</span>
-        <p class="currency-name">United States Dollar</p>
-      </div>
-    </form>
+    <h1>🪙 Crypto Price Checker</h1>
+    <div class="block">
+      <label>Select Crypto</label>
+      <select id="crypto">
+        <option value="bitcoin">Bitcoin</option>
+        <option value="ethereum">Ethereum</option>
+        <option value="dogecoin">Dogecoin</option>
+      </select>
+
+      <label>Select Currency</label>
+      <select id="crypto-currency">
+        <option value="usd">USD</option>
+        <option value="inr">INR</option>
+        <option value="eur">EUR</option>
+      </select>
+
+      <button onclick="fetchCryptoPrice()">Get Price</button>
+      <p id="crypto-result">--</p>
+    </div>
   </div>
 
   <script src="script.js"></script>
